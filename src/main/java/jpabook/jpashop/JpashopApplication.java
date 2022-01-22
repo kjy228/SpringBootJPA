@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JpashopApplication {
 
     public static void main(String[] args) {
-        Hello hello = new Hello();
-        hello.setDate("hello");
-        String date = hello.getDate();
+//        Hello hello = new Hello();
+//        hello.setDate("hello");
+//        String date = hello.getDate();
 
         SpringApplication.run(JpashopApplication.class, args);
     }

@@ -4,11 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 @Getter @Setter
 public class Order {
+    // 연관관계 주인은 가까운 외래키로 잡으면 된다. 따라서 member
     @Id @GeneratedValue
     @Column(name = "order_id")
     private Long id;
@@ -17,4 +21,13 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
+    private LocalDateTime orderDate;    // 주문시간
+    private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 }

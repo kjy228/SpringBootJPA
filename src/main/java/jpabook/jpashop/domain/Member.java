@@ -20,6 +20,6 @@ public class Member {
     @Embedded   // 내장 타입이다!!
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "member") //나는 Order테이블에 있는 member필드에 의해 매핑된 거울일 뿐이야
     private List<Order> orders = new ArrayList<>();
 }

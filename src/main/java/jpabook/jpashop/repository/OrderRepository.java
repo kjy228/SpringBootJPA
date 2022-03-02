@@ -1,6 +1,7 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -42,7 +43,6 @@ public class OrderRepository {
                 jpql += " and";
             }
             jpql += " o.status = :status";
-
         }
 
         // 회원 이름 검색
@@ -61,9 +61,14 @@ public class OrderRepository {
 
         if (orderSearch.getOrderStatus() != null) {
             query = query.setParameter("status", orderSearch.getOrderStatus());
-        } if (StringUtils.hasText(orderSearch.getMemberName())) {
+        }
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
         return query.getResultList();
+    }
+
+    public List<Item> findAll(OrderSearch orderSearch) {
+        return em.createQuery("select i from Item i", Item.class).getResultList();
     }
 }

@@ -20,6 +20,17 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional
+    public void upadteItem(Long itemId, String name, int price, int stockQuantity) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setPrice(price);
+        findItem.setName(name);
+        findItem.setStockQuantity(stockQuantity);
+        // merge가 이렇게 리턴까지 해줌.
+        // 엔티티를 변경할 떄는 merge를 가급적 쓰지 말고 변경감지를 쓰자!
+//        return findItem;
+    }
+
     public List<Item> findItems(){
         return itemRepository.findAll();
     }

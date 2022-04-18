@@ -20,6 +20,12 @@ public class JpaMain {
             member.setId(100L);
             member.setName("HelloJPA");
 
+/*          // jpa는 값을 바꾸면 트랜잭션이 커밋되는 시점에 자동으로 값이 업뎃되는구나
+                    굳이 이렇게 안해도 되는구나 알면 된다.
+            if(member.getName().equals("ZZZZZ")){
+                em.update(member);
+            }*/
+
             // 여기서부터 영속 상태가 된다. 하지만 이때 db에 저장되는게 아니다.
             System.out.println("=== BEFORE ===");
             em.persist(member);

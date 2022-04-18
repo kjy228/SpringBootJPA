@@ -13,13 +13,27 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Member member = new Member();
-        member.setId(1L);
-        member.setName("HelloA");
-        em.persist(member);
-        tx.commit();
+        // try-catch문으로 해주는게 좋음.
+        try {
+            // 엔티티를 생성한 상태로 즉, 비영속 상태
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
-        em.close();
+            // 여기서부터 영속 상태가 된다. 하지만 이때 db에 저장되는게 아니다.
+            System.out.println("=== BEFORE ===");
+            em.persist(member);
+//            em.detach(member);    // 영속성 컨텍스트에서 분리
+//            em.remove(member);    // 삭제
+            System.out.println("=== AFTER ===");
+            // 트랜잭션을 commit하는 순간에 db에 쿼리가 날라간다.
+            tx.commit();
+
+        } catch (Exception e){
+            tx.rollback();
+        } finally {
+            em.close();
+        }
         emf.close();
     }
 }

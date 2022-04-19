@@ -7,9 +7,11 @@ import javax.persistence.Persistence;
 
 public class JpaMain {
     public static void main(String[] args) {
+        // 엔티티 매니저 팩토리 생성
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+        // 엔티티 매니저 생성
         EntityManager em = emf.createEntityManager();
-        // jpa에서는 transaction 단위가 매우매우 중요하다.
+        // 트랜잭션 기능 획득
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -17,8 +19,9 @@ public class JpaMain {
         try {
             // 엔티티를 생성한 상태로 즉, 비영속 상태
             Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
+            member.setId(2L);
+            member.setName("B");
+            member.setRoleType(RoleType.ADMIN);
 
 /*          // jpa는 값을 바꾸면 트랜잭션이 커밋되는 시점에 자동으로 값이 업뎃되는구나
                     굳이 이렇게 안해도 되는구나 알면 된다.
